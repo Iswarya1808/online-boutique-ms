@@ -27,7 +27,7 @@ If you’re using this demo, please **★Star** this repository to show your int
 ## Quickstart (GKE)
 
 1. Ensure you have the following requirements:
-   - [Azure/AWS/Google Cloud project]
+   - [Azure/AWS/Google Cloud account]
 
 2. Clone the repository.
 
@@ -39,7 +39,7 @@ If you’re using this demo, please **★Star** this repository to show your int
 5. Deploy Online Boutique to the cluster.
 
    ```sh
-   kubectl apply -f ./release/kubernetes-manifests.yaml
+   kubectl apply -f release/kubernetes-manifests.yaml
    ```
 
 6. Wait for the pods to be ready.
@@ -74,9 +74,51 @@ If you’re using this demo, please **★Star** this repository to show your int
 
    Visit `http://EXTERNAL_IP` in a web browser to access your instance of Online Boutique.
 
-## Use Terraform to provision a GKE cluster and deploy Online Boutique
+## Exposing app using ingress
+   1. Nginx Ingress controller. 
+        ```sh
+        helm upgrade --install ingress-nginx ingress-nginx \
+        --repo https://kubernetes.github.io/ingress-nginx 
+        --namespace ingress-nginx --create-namespace
+        ```
+   2. To see the ingress controller pod running in ingress-nginx namespace. 
+        ```sh
+        kubectl get pods -n ingress-nginx
+        ```
+        ```sh
+        ingress-nginx-controller-xxxxx   Running   1/1   2m
+        ```
+  2. Deploying Ingress resource.
+       ```sh
+       kubectl apply -f release/ingress.yaml
+       ```
+  3. Access the web frontend in a browser using the Ingress controller external IP.
 
-The [`/terraform` folder](/terraform) contains instructions for using [Terraform](https://www.terraform.io/intro) to replicate the steps from [**Quickstart (GKE)**](#quickstart-gke) above.
+       ```sh
+       kubectl get service -n ingress-nginx | awk '{print $4}'
+       ```
+
+   Visit `http://EXTERNAL_IP` in a web browser to access your instance of Online Boutique. 
+
+## Exposing the Application via Istio Gateway and VirtualService
+
+After exposing the app via NGINX Ingress, we configure Istio to manage ingress and egress traffic.
+- The Gateway and VirtualServices define how external requests reach the frontend service.
+- The ServiceEntries explicitly allow outbound traffic to Google APIs and metadata servers, ensuring secure communication with external dependencies.
+
+   1. The ommand tells Kubernetes to create or update resources defined in the YAML file. These resources are Istio custom objects that extend Kubernetes networking to control how traffic flows inside and outside the mesh. 
+        ```sh
+        kubectl apply -f istio-frontend.yaml
+        kubectl apply -f istio-gateway.yaml
+        kubectl apply -f istio-frontend-ingress.yaml
+        kubectl apply -f istio-serviceentry.yaml
+        ```
+  2. Verying resources
+       ```sh
+       kubectl get gateway
+       kubectl get virtualservice
+       kubectl get serviceentry
+       ```
 
 ## Architecture
 
@@ -101,3 +143,7 @@ Find **Protocol Buffers Descriptions** at the [`./protos` directory](/protos).
 | [recommendationservice](/src/recommendationservice) | Python        | Recommends other products based on what's given in the cart.                                                                      |
 | [adservice](/src/adservice)                         | Java          | Provides text ads based on given context words.                                                                                   |
 | [loadgenerator](/src/loadgenerator)                 | Python/Locust | Continuously sends requests imitating realistic user shopping flows to the frontend.                                              |
+
+## Use Terraform to provision a GKE cluster and deploy Online Boutique
+
+The [`/terraform` folder](/terraform) contains instructions for using [Terraform](https://www.terraform.io/intro) to replicate the steps from [**Quickstart (GKE)**](#quickstart-gke) above.
