@@ -4,7 +4,7 @@
 
 ![Continuous Integration](https://github.com/GoogleCloudPlatform/microservices-demo/workflows/Continuous%20Integration%20-%20Main/Release/badge.svg)
 
-**Online Boutique** is a cloud-first microservices demo application.
+**Online Boutique** is a cloud-first microservices application.
 Online Boutique consists of an 11-tier microservices application. The application is a
 web-based e-commerce app where users can browse items,
 add them to the cart, and purchase them.
@@ -14,7 +14,7 @@ Kubernetes (Azure), Istio, and gRPC. This application
 works on any Kubernetes cluster, like Azure
 Kubernetes Engine (AKS). It’s **easy to deploy with little to no configuration**.
 
-If you’re using this demo, please **★Star** this repository to show your interest!
+If you’re using this project, please **★Star** this repository to show your interest!
 
 ## Screenshots
 
