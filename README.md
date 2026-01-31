@@ -9,14 +9,12 @@ Online Boutique consists of an 11-tier microservices application. The applicatio
 web-based e-commerce app where users can browse items,
 add them to the cart, and purchase them.
 
-Google uses this application to demonstrate the use of technologies like
-Kubernetes, GKE, Istio, Stackdriver, and gRPC. This application
-works on any Kubernetes cluster, like Google
-Kubernetes Engine (GKE). It’s **easy to deploy with little to no configuration**.
+This application to demonstrate the use of technologies like
+Kubernetes (Azure), Istio, and gRPC. This application
+works on any Kubernetes cluster, like Azure
+Kubernetes Engine (AKS). It’s **easy to deploy with little to no configuration**.
 
 If you’re using this demo, please **★Star** this repository to show your interest!
-
-**Note to Googlers (Google employees):** Please fill out the form at [go/microservices-demo](http://go/microservices-demo).
 
 ## Screenshots
 
@@ -24,7 +22,7 @@ If you’re using this demo, please **★Star** this repository to show your int
 | ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
 | [![Screenshot of store homepage](/docs/img/online-boutique-frontend-1.png)](/docs/img/online-boutique-frontend-1.png) | [![Screenshot of checkout screen](/docs/img/online-boutique-frontend-2.png)](/docs/img/online-boutique-frontend-2.png) |
 
-## Quickstart (GKE)
+## Quickstart (AKS)
 
 1. Ensure you have the following requirements:
    - [Azure/AWS/Google Cloud account]
@@ -108,10 +106,7 @@ After exposing the app via NGINX Ingress, we configure Istio to manage ingress a
 
    1. The ommand tells Kubernetes to create or update resources defined in the YAML file. These resources are Istio custom objects that extend Kubernetes networking to control how traffic flows inside and outside the mesh. 
         ```sh
-        kubectl apply -f istio-frontend.yaml
-        kubectl apply -f istio-gateway.yaml
-        kubectl apply -f istio-frontend-ingress.yaml
-        kubectl apply -f istio-serviceentry.yaml
+        kubectl apply -f release/istio-manifests.yaml
         ```
   2. Verying resources
        ```sh
