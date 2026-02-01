@@ -161,11 +161,13 @@ This project uses GitHub Actions for automated build, quality checks, security s
 | [adservice](/src/adservice)                         | Java          | Provides text ads based on given context words.                                                                                   |
 | [loadgenerator](/src/loadgenerator)                 | Python/Locust | Continuously sends requests imitating realistic user shopping flows to the frontend.                                              |
 
-## Observability
+## Monitoring
 
- # Install Observability Stack (Prometheus , Grafana)
- $ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
- $ helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create namespace
+ ## Install Monitoring Stack (Prometheus , Grafana)
+      ```sh
+       helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+       helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create namespace
+       ```
  
 ## Use Terraform to provision a GKE cluster and deploy Online Boutique
 
