@@ -123,7 +123,28 @@ languages that talk to each other over gRPC.
 [![Architecture of
 microservices](/docs/img/architecture-diagram.png)](/docs/img/architecture-diagram.png)
 
-Find **Protocol Buffers Descriptions** at the [`./protos` directory](/protos).
+## CI/CD Workflow
+
+This project uses GitHub Actions for automated build, quality checks, security scans, and deployment to AKS.
+
+## Pipeline Stages
+
+- **Code Checkout** → triggered by GitHub Actions
+- **Quality Gate** → SonarCloud analysis
+- **Security Scan** → Trivy vulnerability scan
+- **Build & Push** → Docker image pushed to Azure Container Registry (ACR)
+- **Deployment** → Helm charts and Istio manifests applied to AKS
+- **Post-Deployment** → Smoke tests and monitoring
+
+## Conditional Logic
+
+- If **SonarCloud fails**, the pipeline stops.
+- If **Trivy scan fails**, the pipeline stops.
+- Only on passing both gates, the image is pushed and deployed.
+
+## Visual Diagram
+<img width="1708" height="876" alt="image" src="https://github.com/user-attachments/assets/11bc40a5-5131-4a25-9ecc-2b65fd72f5a6" />
+
 
 | Service                                              | Language      | Description                                                                                                                       |
 | ---------------------------------------------------- | ------------- | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -141,4 +162,4 @@ Find **Protocol Buffers Descriptions** at the [`./protos` directory](/protos).
 
 ## Use Terraform to provision a GKE cluster and deploy Online Boutique
 
-The [`/terraform` folder](/terraform) contains instructions for using [Terraform](https://www.terraform.io/intro) to replicate the steps from [**Quickstart (GKE)**](#quickstart-gke) above.
+The [`/terraform` folder](/terraform) contains instructions for using [Terraform](https://www.terraform.io/intro) to replicate the steps from [**Quickstart (AKS)**](#quickstart-gke) above.
