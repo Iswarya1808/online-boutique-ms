@@ -171,4 +171,4 @@ This project uses GitHub Actions for automated build, quality checks, security s
  
 ## Use Terraform to provision a GKE cluster and deploy Online Boutique
 
-The [`/terraform` folder](/terraform) contains instructions for using [Terraform](https://www.terraform.io/intro) to replicate the steps from [**Quickstart (AKS)**](#quickstart-gke) above.
+The [`/terraform` folder](/terraform) contains instructions for using [Terraform](https://www.terraform.io/intro).
