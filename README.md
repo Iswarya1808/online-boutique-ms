@@ -164,10 +164,10 @@ This project uses GitHub Actions for automated build, quality checks, security s
 ## Monitoring
 
  ## Install Monitoring Stack (Prometheus , Grafana)
-  ```sh
+   ```sh
       helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
       helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create namespace
-      ```
+   ```
  
 ## Use Terraform to provision a GKE cluster and deploy Online Boutique
 
