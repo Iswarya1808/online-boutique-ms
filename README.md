@@ -134,7 +134,7 @@ This project uses GitHub Actions for automated build, quality checks, security s
 - **Security Scan** → Trivy vulnerability scan
 - **Build & Push** → Docker image pushed to Azure Container Registry (ACR)
 - **Deployment** → Helm charts and Istio manifests applied to AKS
-- **Post-Deployment** → Smoke tests and monitoring
+- **Post-Deployment** → Monitoring using Prometheus and Grafana
 
 ## Conditional Logic
 
@@ -144,6 +144,7 @@ This project uses GitHub Actions for automated build, quality checks, security s
 
 ## Visual Diagram
 <img width="1708" height="876" alt="image" src="https://github.com/user-attachments/assets/11bc40a5-5131-4a25-9ecc-2b65fd72f5a6" />
+
 
 
 | Service                                              | Language      | Description                                                                                                                       |
@@ -160,6 +161,12 @@ This project uses GitHub Actions for automated build, quality checks, security s
 | [adservice](/src/adservice)                         | Java          | Provides text ads based on given context words.                                                                                   |
 | [loadgenerator](/src/loadgenerator)                 | Python/Locust | Continuously sends requests imitating realistic user shopping flows to the frontend.                                              |
 
+## Observability
+
+ # Install Observability Stack (Prometheus , Grafana)
+ $ helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+ $ helm install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create namespace
+ 
 ## Use Terraform to provision a GKE cluster and deploy Online Boutique
 
 The [`/terraform` folder](/terraform) contains instructions for using [Terraform](https://www.terraform.io/intro) to replicate the steps from [**Quickstart (AKS)**](#quickstart-gke) above.
